@@ -5,16 +5,14 @@ import {
   Get,
   Param,
   Patch,
-  Post,
-  Query,
+  Post
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/movie.entity';
 
 @Controller('movies')
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {
-  }
+  constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
   getAll(): Movie[] {
@@ -34,14 +32,11 @@ export class MoviesController {
 
   @Delete('/:id')
   remove(@Param('id') id: number) {
-    return this.moviesService.delete(id);
+    return this.moviesService.deleteOne(id);
   }
 
   @Patch('/:id')
   patch(@Param('id') movieId: number, @Body() updateData) {
-    return {
-      updatedMovie: movieId,
-      ...updateData,
-    };
+    return this.moviesService.update(movieId, updateData);
   }
 }
