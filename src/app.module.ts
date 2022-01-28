@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
-import { MoviesController } from './movies/movies.controller';
-import { MoviesService } from './movies/movies.service';
+import { MoviesModule } from './movies/movies.module';
+import { AppController } from './app.controller';
+import { MongooseModule } from '@nestjs/mongoose';
+import { config } from 'dotenv';
+config();
 
+console.log(process.env.MONGO_URL);
 @Module({
-  imports: [],
-  controllers: [MoviesController],
-  providers: [MoviesService],
+  imports: [MoviesModule, MongooseModule.forRoot(process.env.MONGO_URL)],
+  controllers: [AppController],
+  providers: [],
 })
 export class AppModule {}

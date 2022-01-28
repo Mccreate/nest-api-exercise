@@ -18,32 +18,35 @@ export class MoviesController {
   }
 
   @Get()
-  getAll(): Movie[] {
-    return this.moviesService.getAll();
+  async getAll(): Promise<Movie[]> {
+    return await this.moviesService.getAll();
   }
 
   @Get('/:id')
-  getOne(@Param('id') id: number) {
-    return this.moviesService.getOne(id);
+  async getOne(@Param('id') id: number): Promise<Movie> {
+    return await this.moviesService.getOne(id);
   }
 
   @Post()
-  create(@Body() movieData: CreateMovieDTO) {
-    return this.moviesService.create(movieData);
+  async create(@Body() movieData: CreateMovieDTO) {
+    return await this.moviesService.create(movieData);
   }
 
   @Delete('/:id')
-  remove(@Param('id') id: number) {
-    return this.moviesService.deleteOne(id);
+  async remove(@Param('id') id: number): Promise<boolean> {
+    return await this.moviesService.deleteOne(id);
   }
 
   @Delete()
-  removeAll() {
-    return this.moviesService.deleteAll();
+  async removeAll(): Promise<boolean> {
+    return await this.moviesService.deleteAll();
   }
 
   @Patch('/:id')
-  patch(@Param('id') movieId: number, @Body() updateData: UpdateMovieDTO) {
-    return this.moviesService.update(movieId, updateData);
+  async patch(
+    @Param('id') movieId: number,
+    @Body() updateData: UpdateMovieDTO,
+  ) {
+    return await this.moviesService.update(movieId, updateData);
   }
 }
