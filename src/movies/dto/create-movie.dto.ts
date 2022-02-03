@@ -1,6 +1,8 @@
 import { IsNumber, IsString } from 'class-validator';
 
 export class CreateMovieDTO {
+  @IsNumber()
+  readonly id: number;
   @IsString()
   readonly title: string;
   @IsNumber()
